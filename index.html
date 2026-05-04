@@ -26,7 +26,7 @@
             cursor: pointer;
             transition: transform 0.2s;
             position: relative;
-            z-index: 1; /* La tarjeta queda en la capa base */
+            z-index: 
         }
         .card:active {
             transform: scale(0.95);
@@ -39,7 +39,6 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            /* No necesita z-index aquí para que los corazones pasen arriba */
         }
         h1 {
             color: #ff4d6d;
@@ -51,7 +50,6 @@
             line-height: 1.6;
             font-size: 14px;
         }
-        /* ESTILO DE LOS CORAZONES - CAPA SUPERIOR */
         .heart-particle {
             position: absolute;
             color: #ff4d6d;
@@ -59,7 +57,7 @@
             user-select: none;
             pointer-events: none;
             animation: fall linear forwards;
-            z-index: 9999; /* Esto los pone por delante de TODO */
+            z-index: 9999; 
         }
         @keyframes fall {
             to {
@@ -71,7 +69,7 @@
 <body>
 
     <div class="card" id="loveCard">
-        <!-- Usando el nombre que te funcionó -->
+        
         <img src="IMG_5949.jpeg" alt="I Choo-Choo-Choose You">
         <h1>¡Select * From My_Heart!</h1>
         <p>Eres el único registro en mi tabla <code>true_love</code>. <br> ¡Toca aquí para procesar!</p>
@@ -98,14 +96,12 @@
             }, 5000);
         }
 
-        // Al tocar la tarjeta llueven muchos corazones
         card.addEventListener('click', () => {
             for (let i = 0; i < 20; i++) {
                 setTimeout(createHeart, i * 50); 
             }
         });
         
-        // Corazones constantes de fondo
         setInterval(createHeart, 600);
     </script>
 
