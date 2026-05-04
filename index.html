@@ -3,58 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Choo-Choo-Choose You</title>
+    <title>I Choo-Choo-Choose You - Interactivo</title>
     <style>
+        /* --- EL ESTILO (CSS) --- */
         body {
-            background-color: #a2d2ff;
+            background-color: #a2d2ff; /* Fondo Celeste */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Courier New', Courier, monospace; /* Fuente más 'Data' */
+            overflow: hidden; /* Para que los corazones no creen barras de desplazamiento */
         }
         .card {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
-            max-width: 90%;
-            width: 400px;
+            max-width: 85%;
+            width: 380px;
+            cursor: pointer; /* Cambia el puntero para indicar que se puede tocar */
+            transition: transform 0.2s; /* Animación suave al tocar */
+            z-index: 10; /* Asegura que la tarjeta esté sobre la lluvia */
+        }
+        .card:active {
+            transform: scale(0.95); /* Efecto de 'presionado' en el celu */
         }
         img {
             max-width: 100%;
             border-radius: 10px;
+            margin-bottom: 15px;
         }
         h1 {
             color: #ff4d6d;
-            font-size: 24px;
+            font-size: 22px;
+            margin: 10px 0;
         }
         p {
-            color: #555;
-            line-height: 1.5;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
         }
-        .heart {
+        /* Estilos para los corazones que caen */
+        .heart-particle {
+            position: absolute;
             color: #ff4d6d;
-            font-size: 30px;
-            animation: beat .25s infinite alternate;
-            transform-origin: center;
-            display: inline-block;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none; /* No interfieren con los toques */
+            animation: fall linear forwards;
+            z-index: 1;
         }
-        @keyframes beat{
-            to { transform: scale(1.2); }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg); /* Caen hasta el final y giran */
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <img src="IMG_5949.jpeg" alt="I Choo-Choo-Choose You">
-        <h1>¡Te elijo a vos!</h1>
-        <p>No necesito SQL para saber que eres el registro más importante de mi base de datos.</p>
-        <div class="heart">❤️</div>
+    <!-- LA TARJETA (Tócala para el efecto) -->
+    <div class="card" id="loveCard">
+        <img src="image.png" alt="I Choo-Choo-Choose You">
+        <h1>¡Select * From My_Heart!</h1>
+        <p>Eres el único registro en mi tabla <code>true_love</code>. <br> ¡Toca aquí para procesar!</p>
     </div>
+
+    <!-- EL CÓDIGO MÁGICO (JavaScript) -->
+    <script>
+        const card = document.getElementById('loveCard');
+
+        // Función que crea un corazón y lo hace caer
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            
+            // Posición horizontal aleatoria
+            heart.style.left = Math.random() * 100 + "vw";
+            
+            // Posición vertical inicial (un poco arriba de la pantalla)
+            heart.style.top = "-5vh";
+
+            // Tamaño aleatorio para dar profundidad
+            heart.style.fontSize = Math.random() * 15 + 15 + "px";
+
+            // Velocidad de caída aleatoria (entre 2 y 5 segundos)
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+            // Opacidad aleatoria
+            heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+            document.body.appendChild(heart);
+
+            // Borrar el corazón después de que termine la animación para no saturar la memoria
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Evento: Al tocar la tarjeta, crear muchos corazones
+        card.addEventListener('click', () => {
+            // Crea 15 corazones de golpe
+            for (let i = 0; i < 15; i++) {
+                // Pequeño retraso para que no salgan todos exactos
+                setTimeout(createHeart, i * 50); 
+            }
+        });
+        
+        // También crear un corazón random cada tanto, para que tenga vida
+        setInterval(createHeart, 800);
+    </script>
 
 </body>
 </html>
