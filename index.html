@@ -33,8 +33,12 @@
         }
         img {
             max-width: 100%;
+            height: auto; /* Mantiene la proporción */
             border-radius: 10px;
             margin-bottom: 15px;
+            display: block; /* Ayuda a que no haya espacios extra */
+            margin-left: auto;
+            margin-right: auto;
         }
         h1 {
             color: #ff4d6d;
@@ -67,6 +71,7 @@
 
     <!-- LA TARJETA (Tócala para el efecto) -->
     <div class="card" id="loveCard">
+        <!-- SOLUCIÓN AQUÍ: Se cambió "image.png" por "IMG_5949.jpeg" -->
         <img src="IMG_5949.jpeg" alt="I Choo-Choo-Choose You">
         <h1>¡Select * From My_Heart!</h1>
         <p>Eres el único registro en mi tabla <code>true_love</code>. <br> ¡Toca aquí para procesar!</p>
